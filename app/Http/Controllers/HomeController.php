@@ -13,9 +13,4 @@ class HomeController extends Controller
         dump($product);
         return view('home.main');
     }
-
-    public function about()
-    {
-        return view('home.about');
-    }
 }

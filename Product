@@ -1,0 +1,22 @@
+
+   ParseError 
+
+  syntax error, unexpected token "=>", expecting ")"
+
+  at routes/web.php:22
+     18▕ Route::get('/catalog/{category}/{product}', [CatalogController::class , 'product'])->name('product');
+     19▕ Route::get('/catalog/{category}', [CatalogController::class , 'category'])->name('catalog_category');
+     20▕ Route::get('/catalog', [CatalogController::class , 'index'])->name('catalog');
+     21▕ Route::resources(
+  ➜  22▕     [] => \App\Http\Controllers\admin\CategoryController::class,
+     23▕     []  =>
+     24▕ );
+     25▕
+
+      [2m+3 vendor frames [22m
+  4   app/Providers/RouteServiceProvider.php:48
+      Illuminate\Routing\RouteRegistrar::group()
+
+      [2m+15 vendor frames [22m
+  20  [internal]:0
+      Illuminate\Foundation\Application::Illuminate\Foundation\{closure}()
