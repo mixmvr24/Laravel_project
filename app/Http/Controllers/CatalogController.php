@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -11,18 +10,22 @@ class CatalogController extends Controller
 {
     public function index(Request $request)
     {
-        return view('catalog.catalog');
+        $categories = Category::all();
+        $products = Product::query()->orderByDesc('id')->paginate();
+//        dd($request->get('id', 5));
+
+        return (view('catalog.catalog', compact('categories', 'products')));
     }
 
-    public  function category(Request $request, Category $category)
+    public function category(Request $request, Category $category)
     {
         $categories = Category::all();
-        $products = Product::query()->offset(1)->limit(9);
-        return view('catalog.catalog' , compact('category', 'categories', 'products'));
+        $products = Product::query()->paginate(9);
+        return (view('catalog.catalog', compact('category', 'categories', 'products')));
     }
 
-    public function product(Request $request, $category , $product)
+    public function product()
     {
-        return view('catalog.product');
+        return (view('catalog.product'));
     }
 }

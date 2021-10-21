@@ -4,36 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
-/**
- * App\Models\Product
- *
- * @property int $id
- * @property string $name
- * @property int $price
- * @property int $discount
- * @property string|null $description
- * @property string|null $photo
- * @property int $active
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Database\Factories\ProductFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Product query()
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereDiscount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product wherePhoto($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
- * @mixin \Eloquent
- */
 class Product extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'price', 'description', 'active', 'photo'];
+    protected $fillable = ['name', 'price', 'category_id', 'photo'];
+
+
+    public function getPriceAttribute(){
+        return intval($this->attributes['price'] / 10).' руб';
+    }
+
+
+    public function getpagePhotoAttribute(){
+        if(Storage::exists($this->attributes['photo'])){
+            return Storage::url($this->attributes['photo']);
+        }
+        return 'https://www.brandbuilders.io/wp-content/uploads/2016/06/low_price_tag-01.png';
+    }
+
+    public function categories(){
+        return $this->belongsToMany(Category::class, 'products_categories', 'p_id', 'c_id');
+    }
+
+
 }

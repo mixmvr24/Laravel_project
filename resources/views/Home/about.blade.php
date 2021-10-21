@@ -1,2 +1,3 @@
-<?php
-echo 'Hello Laravel Laravel';
+<h1>'Hello from about!'</h1>
+
+

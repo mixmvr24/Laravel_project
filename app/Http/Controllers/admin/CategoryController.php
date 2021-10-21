@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -37,8 +37,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
         $category = new Category();
-        $category->fill(($request->all()));
+        $category->fill($request->all());
         $category->save();
         return response()->redirectToRoute('admin.categories.index');
     }
@@ -51,7 +52,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+
     }
 
     /**
@@ -62,7 +63,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('admin.categories.edit');
+
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -72,9 +74,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $category)
     {
-        //
+        $category = Category::query()->find($category);
+        $category->fill($request->all());
+        $category->save();
+        return response()->redirectToRoute('admin.categories.index');
     }
 
     /**

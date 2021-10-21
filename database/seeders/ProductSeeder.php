@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
 {
@@ -16,6 +15,6 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory(10)->create();
+        Product::factory(100)->create();
     }
 }
