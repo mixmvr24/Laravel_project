@@ -16,11 +16,9 @@ class NewMailer extends Mailable
      *
      * @return void
      */
-    public function __construct($out, $text)
+    public function __construct($text)
     {
         $this->text = $text;
-        $this->out = $out;
-
     }
 
     /**
@@ -30,7 +28,7 @@ class NewMailer extends Mailable
      */
     public function build()
     {
-        return $this->from([$this->out])->view('mails.mail', [
-            'text' => $this->text]);
+        return $this->from('qwerty@gmail.com')
+            ->view('mails.mail', ['text' => $this->text]);
     }
 }

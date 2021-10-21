@@ -20,27 +20,17 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('mail', function (){
-   Mail::to(['qwery@gmail.com'])->send(new OrderCompleted('Hello, qwery!'));
+   Mail::to(['qwery@gmail.com'])
+       ->send(new OrderCompleted('Hello, qwery!'));
 });
 
-Route::post('test_mail/{out}/{text}/{inc}', function ($out, $text, $inc){
-    Mail::to(["$inc"])->send(new NewMailer($out, $text));
+Route::post('test_mail', function (){
+    Mail::to('test_mail@gmail.com')
+        ->send(new NewMailer($text));
 });
 
 
-
-
-Route::get('ololo', SearchController::class)->name('api_search');
-
-Route::get('bank', function (){
-    $client = new GuzzleHttp\Client();
-    $response = $client->request('GET', 'https://www.nbrb.by/api/exrates/currencies');
-    $cur = $response->getBody()->getContents();
-    dd (json_decode($cur));
-});
-Route::apiResource('brands', BrandController::class);
-
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')
+    ->get('/user', function (Request $request) {
     return $request->user();
 });
